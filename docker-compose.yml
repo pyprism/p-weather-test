@@ -16,6 +16,23 @@ services:
     networks:
       - weather-net
 
+  frontend:
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    container_name: frontend
+    stdin_open: true
+#    command: npm run start
+    volumes:
+      - ./frontend:/src/
+      - /src/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - weather-net
+
 networks:
   weather-net:
     driver: bridge
